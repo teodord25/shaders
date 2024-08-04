@@ -21,6 +21,8 @@ void main() {
     // make circle have padding
     pos.xy *= 0.5;
 
+    pos.y += sin(pos.x * 20.)/20.;
+
     // NOTE: this setup currently stretches what is drawn
     // to fill the screen, to have the geometry use the 
     // height and width that it is given, you have to 
