@@ -18,5 +18,11 @@ void main() {
     // to clip space (-1, -1) to (1, 1)
     pos.xy = pos.xy * 2. - 1.;
 
+    // NOTE: this setup currently stretches what is drawn
+    // to fill the screen, to have the geometry use the 
+    // height and width that it is given, you have to 
+    // multiply the pos by some funny matrices
+    // uProjectionMatrix * uModelViewMatrix * pos
+
     gl_Position = pos;
 }
