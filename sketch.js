@@ -9,13 +9,15 @@ function preload() {
 function setup() {
     createCanvas(windowWidth, windowHeight, WEBGL);
 
-    shader(shaderProgram);
+    fill(0);
+    textFont(font);
+    text(webglVersion, 0, 0);
 
     noStroke();
 }
 
 function draw() {
-    clear();
+//    clear();
 // width and height here are automatically set by p5.js to the size of the canvas ?
-    rect(0, 0, width, height);
+    // rect(0, 0, width, height);
 }
