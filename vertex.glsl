@@ -18,6 +18,9 @@ void main() {
     // to clip space (-1, -1) to (1, 1)
     pos.xy = pos.xy * 2. - 1.;
 
+    // make circle have padding
+    pos.xy *= 0.5;
+
     // NOTE: this setup currently stretches what is drawn
     // to fill the screen, to have the geometry use the 
     // height and width that it is given, you have to 
