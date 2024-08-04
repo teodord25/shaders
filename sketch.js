@@ -2,7 +2,7 @@ let shaderProgram;
 let font;
 
 function preload() {
-	shaderProgram = loadShader("vertex.vert", "fragment.frag");
+	shaderProgram = loadShader("vertex.glsl", "fragment.glsl");
 	font = loadFont("/Ldfcomicsans-jj7l.ttf");
 }
 
