@@ -14,5 +14,9 @@ void main() {
     // projections and stuff? but its not needed rn
     vec4 pos = vec4(aPosition, 1.0);
 
+    // map tex coords (0, 0) to (1, 1)
+    // to clip space (-1, -1) to (1, 1)
+    pos.xy = pos.xy * 2. - 1.;
+
     gl_Position = pos;
 }
