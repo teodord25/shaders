@@ -4,6 +4,8 @@
 in vec3 aPosition;
 in vec2 aTexCoord;
 
+out vec2 vTexCoord;
+
 void main() {
     // make vec4 with passed xyz and w = 1.0 for simplicity, w is used for like
     // projections and stuff? but its not needed rn
@@ -18,6 +20,8 @@ void main() {
     // height and width that it is given, you have to 
     // multiply the pos by some funny matrices
     // uProjectionMatrix * uModelViewMatrix * pos
+
+    vTexCoord = aTexCoord;
 
     gl_Position = pos;
 }
