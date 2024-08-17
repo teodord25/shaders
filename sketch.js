@@ -19,6 +19,5 @@ function draw() {
 	background(0);
 	// width and height here are automatically set by p5.js to the size of the canvas ?
 
-	shaderProgram.setUniform("millis", millis());
-	ellipse(0, 0, width, height, 150);
+	rect(0, 0, width, height);
 }
