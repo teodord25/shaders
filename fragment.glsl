@@ -8,5 +8,5 @@ out vec4 outClr;
 
 void main() {
 
-    outClr = vec4(1.0, vTexCoord.x, 0.0, 1.0);
+    outClr = vec4(vTexCoord, 1.0, 1.0);
 }
