@@ -10,6 +10,17 @@ function setup() {
 	createCanvas(windowWidth, windowHeight, WEBGL);
 
 	shader(shaderProgram);
+	const numCircles = 50;
+	const circles = [];
+	for (let i = 0; i < numCircles; i++) {
+		const x = random();
+		const y = random();
+		const r = random(0.01, 0.05);
+		circles.push(x, y, r);
+	}
+
+	shaderProgram.setUniform("numCircles", numCircles);
+	shaderProgram.setUniform("circles", circles);
 
 	noStroke();
 }
@@ -17,14 +28,7 @@ function setup() {
 function draw() {
 	clear();
 	background(0);
-	// width and height here are automatically set by p5.js to the size of the canvas ?
-	//
-	const col1 = [1, 0, 1];
-	const col2 = [0, 1, 1];
-	// you have to concat the arrays into a single array and
-	// the shader will treat it as a 2D array
-	const colors = col1.concat(col2);
 
-	shaderProgram.setUniform("colors", colors);
+	shaderProgram.setUniform("millis", millis());
 	rect(0, 0, width, height);
 }
