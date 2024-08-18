@@ -11,7 +11,7 @@ void main() {
     vec3 circle = vec3(0.5, 0.5, 0.3);
 
     float d = distance(vTexCoord, circle.xy) - circle.z;
-    d = step(0., d);
+    d = smoothstep(0., 0.01, d);
 
     outClr = vec4(d, d, d, 1.0);
 }
