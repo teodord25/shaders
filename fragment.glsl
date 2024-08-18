@@ -8,5 +8,10 @@ out vec4 outClr;
 
 void main() {
 
-    outClr = vec4(fract(vTexCoord * 10.0), 1.0, 1.0);
+    vec2 p = vTexCoord;
+    float x = sin(p.x * 20.0);
+    float y = cos(p.y * 20.0);
+    vec4 c = vec4(x, y, 1.0, 1.0);
+
+    outClr = c;
 }
