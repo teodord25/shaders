@@ -10,19 +10,12 @@ function setup() {
 	createCanvas(windowWidth, windowHeight, WEBGL);
 
 	shader(shaderProgram);
-	const numCircles = 50;
-	const circles = [];
-	for (let i = 0; i < numCircles; i++) {
-		const x = random();
-		const y = random();
-		const r = random(0.01, 0.05);
-		circles.push(x, y, r);
-	}
-
-	shaderProgram.setUniform("numCircles", numCircles);
-	shaderProgram.setUniform("circles", circles);
 
 	noStroke();
+
+	shaderProgram.setUniform("u_resolution", [width, height]);
+	shaderProgram.setUniform("u_zoom", 2);
+	shaderProgram.setUniform("u_center", [.5, 0]);
 }
 
 function draw() {
