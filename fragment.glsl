@@ -5,7 +5,6 @@ uniform vec3 colors[2];
 
 in vec2 vTexCoord;
 
-// outputs to the framebuffer
 out vec4 outClr;
 
 void main() {
