@@ -8,7 +8,9 @@ in vec2 vTexCoord;
 out vec4 outClr;
 
 void main() {
-    vec4 c = vec4(colors[1], 1.);
+    vec3 circle = vec3(0.5, 0.5, 0.3);
 
-    outClr = c;
+    float d = distance(vTexCoord, circle.xy);
+
+    outClr = vec4(d, d, d, 1.0);
 }
