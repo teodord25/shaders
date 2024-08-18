@@ -4,13 +4,18 @@ precision mediump float;
 uniform vec2 u_resolution; // viewport resolution (width, height)
 uniform float u_zoom;
 uniform vec2 u_center;
+uniform float millis;
 
 in vec2 vTexCoord;
 
 out vec4 outClr;
 
 void main() {
-    vec2 c = (vTexCoord - 0.5) * u_zoom - u_center;
+    float zoom = 3. * 1000. / millis;
+    vec2 center = u_center;
+    center.x = center.x + 0.5 * log(millis / 1000.);
+
+    vec2 c = (vTexCoord - 0.5) * zoom - center;
     vec2 z = vec2(0.0);
     int i;
     for(i = 0; i < 1000; i++) {
