@@ -1,7 +1,7 @@
 #version 300 es
 precision mediump float;
 
-uniform float millis;
+uniform vec3 colors[2];
 
 in vec2 vTexCoord;
 
@@ -9,10 +9,7 @@ in vec2 vTexCoord;
 out vec4 outClr;
 
 void main() {
-
-    vec2 p = vTexCoord;
-    float x = (sin(p.x * 16.0 + millis / 500.) + 1.) / 2.;
-    vec4 c = vec4(x, 0., 1.0, 1.0);
+    vec4 c = vec4(colors[1], 1.);
 
     outClr = c;
 }
