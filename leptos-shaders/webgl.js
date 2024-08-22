@@ -28,3 +28,5 @@ function main() {
         gl.clearColor(0.0, 1.0, 0.0, 1.0); // set the clear color to green
         gl.clear(gl.COLOR_BUFFER_BIT); // clear the buffer with the clear color
 }
+
+main();
