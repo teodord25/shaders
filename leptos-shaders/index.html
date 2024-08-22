@@ -17,40 +17,11 @@
         integrity="sha512-zhHQR0/H5SEBL3Wn6yYSaTTZej12z0hVZKOv3TwCUXT1z5qeqGcXJLLrbERYRScEDDpYIJhPC1fk31gqR783iQ=="
         crossorigin="anonymous" defer></script>
 
+    <script src="webgl.js" type="module"></script>
 </head>
 
 <body>
     <canvas id="glcanvas" width="800" height="600"></canvas>
-    <script>
-        const canvas = document.querySelector('#glcanvas');
-
-        const gl = canvas.getContext('webgl');
-
-        if (!gl) {
-            console.log('WebGL not supported :(');
-        }
-
-
-        // Vertex shader program
-        const vsSource = `
-            attribute vec4 aVertexPosition;
-            uniform mat4 uModelViewMatrix;
-            uniform mat4 uProjectionMatrix;
-            void main() {
-              gl_Position = uProjectionMatrix * uModelViewMatrix * aVertexPosition;
-            }
-        `;
-
-        const fsSource = `
-            void main() {
-              gl_FragColor = vec4(1.0, 1.0, 1.0, 1.0);
-            }
-        `;
-
-
-        gl.clearColor(0.0, 1.0, 0.0, 1.0); // set the clear color to green
-        gl.clear(gl.COLOR_BUFFER_BIT); // clear the buffer with the clear color
-    </script>
 </body>
 
 </html>
