@@ -1,8 +1,9 @@
 use wasm_bindgen::prelude::*;
 use web_sys::{WebGl2RenderingContext, WebGlProgram, WebGlShader};
 
+
 #[wasm_bindgen]
-pub fn init_webgl() -> Result<(), JsValue> {
+pub fn init_webgl() -> Result<WebGl2RenderingContext, JsValue> {
     let document = web_sys::window().unwrap().document().unwrap();
     let canvas = document.get_element_by_id("canvas").unwrap();
     let canvas: web_sys::HtmlCanvasElement = canvas.dyn_into::<web_sys::HtmlCanvasElement>()?;
@@ -11,6 +12,12 @@ pub fn init_webgl() -> Result<(), JsValue> {
         .get_context("webgl2")?
         .unwrap()
         .dyn_into::<WebGl2RenderingContext>()?;
+
+    Ok(context)
+}
+
+// NOTE: this is almost certainly not the correct way of doing this but it works for now
+pub fn draw(context: &WebGl2RenderingContext, vertices: [f32; 9]) -> Result<(), JsValue> {
 
     let vert_shader = compile_shader(
         &context,
@@ -39,10 +46,9 @@ pub fn init_webgl() -> Result<(), JsValue> {
         }
         "##,
     )?;
+
     let program = link_program(&context, &vert_shader, &frag_shader)?;
     context.use_program(Some(&program));
-
-    let vertices: [f32; 9] = [-0.7, -0.7, 0.0, 0.7, -0.7, 0.0, 0.0, 0.7, 0.0];
 
     let position_attribute_location = context.get_attrib_location(&program, "position");
     let buffer = context.create_buffer().ok_or("Failed to create buffer")?;
@@ -84,16 +90,13 @@ pub fn init_webgl() -> Result<(), JsValue> {
     context.bind_vertex_array(Some(&vao));
 
     let vert_count = (vertices.len() / 3) as i32;
-    draw(&context, vert_count);
 
-    Ok(())
-}
-
-fn draw(context: &WebGl2RenderingContext, vert_count: i32) {
     context.clear_color(0.0, 0.0, 0.0, 1.0);
     context.clear(WebGl2RenderingContext::COLOR_BUFFER_BIT);
 
     context.draw_arrays(WebGl2RenderingContext::TRIANGLES, 0, vert_count);
+
+    Ok(())
 }
 
 pub fn compile_shader(

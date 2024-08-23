@@ -9,15 +9,19 @@ fn main() {
 
 #[component]
 pub fn App() -> impl IntoView {
-    let (toggled, set_toggled) = create_signal(false);
+    let (count, set_count) = create_signal(0);
 
-    create_effect(|_| { webgl::init_webgl().unwrap() });
+    let vertices: [f32; 9] = [1.0, -0.7, 0.0, 0.7, -0.7, 0.0, 0.0, 0.7, 0.0];
 
-    // share `set_toggled` with all children of this component
-    provide_context(set_toggled);
+    create_effect(move |_| { 
+        let context = webgl::init_webgl().unwrap();
+        webgl::draw(&context, vertices).unwrap();
+    });
 
     view! {
-        <p>"hello bros" {toggled}</p>
+        <button on:click={move |_| {
+            set_count(count.get() + 1);
+        }}></button>
         <canvas id="canvas" width="640" height="480"></canvas>
     }
 }
