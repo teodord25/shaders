@@ -1,7 +1,12 @@
 [package]
-name = "leptos-wgpu"
+name = "leptos_wgpu"
 version = "0.1.0"
 edition = "2021"
+
+[lib]
+name = "leptos_wgpu"
+path = "src/lib.rs"
+crate-type = ["rlib", "cdylib"]
 
 [dependencies]
 winit = { version = "0.29", features = ["rwh_05"] }
