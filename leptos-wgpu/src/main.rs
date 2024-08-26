@@ -1,36 +1,38 @@
-use leptos::*;
-mod webgl;
+use winit::{
+    event::*,
+    event_loop::EventLoop,
+    keyboard::{KeyCode, PhysicalKey},
+    window::WindowBuilder,
+};
 
-fn main() {
-    console_error_panic_hook::set_once();
+pub fn run() {
+    env_logger::init();
+    let event_loop = EventLoop::new().unwrap();
+    let window = WindowBuilder::new().build(&event_loop).unwrap();
 
-    mount_to_body(|| {
-        view! {
-            <canvas id="canvas" width="640" height="480"></canvas>
-            <App/>
-        }
-    })
+    let _ = event_loop.run(move |event, control_flow| match event {
+        Event::WindowEvent {
+            ref event,
+            window_id,
+        } if window_id == window.id() => match event {
+            WindowEvent::CloseRequested
+            | WindowEvent::KeyboardInput {
+                event:
+                    KeyEvent {
+                        state: ElementState::Pressed,
+                        physical_key: PhysicalKey::Code(KeyCode::Escape),
+                        ..
+                    },
+                ..
+            } => control_flow.exit(),
+            _ => {
+                println!("{:?}", event);
+            }
+        },
+        _ => {}
+    });
 }
 
-#[component]
-pub fn App() -> impl IntoView {
-    let (count, set_count) = create_signal(0.0);
-    let (vertices, set_vertices) = create_signal([-0.7, -0.7, 0.0, 0.7, -0.7, 0.0, 0.0, 0.7, 0.0]);
-
-    create_effect(move |_| {
-        let context = webgl::init_webgl().unwrap();
-
-        webgl::draw(&context, vertices.get()).unwrap();
-    });
-
-    view! {
-        <button on:click={move |_| {
-            set_count(count.get() + 0.1);
-            set_vertices([
-                -0.7 + count.get(), -0.7, 0.0,
-                0.7, -0.7, 0.0,
-                0.0, 0.7, 0.0
-            ]);
-        }}>{"Draw"}</button>
-    }
+fn main() {
+    run();
 }
