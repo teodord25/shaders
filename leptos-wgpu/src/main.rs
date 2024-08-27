@@ -1,15 +1,12 @@
 pub mod app;
 pub mod webgpu;
 
-use app::App;
 use leptos::*;
+use app::Triangle;
 
-use webgpu::state::run;
 
 fn main() {
-    std::panic::set_hook(Box::new(console_error_panic_hook::hook));
-    console_log::init().expect("could not initialize logger");
-
-    mount_to_body(App);
-    spawn_local(run());
+    console_error_panic_hook::set_once();
+    mount_to_body(Triangle);
 }
+
