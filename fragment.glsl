@@ -13,6 +13,7 @@ out vec4 outClr;
 void main() {
     float zoom = 2.;
     vec2 center = u_center;
+    center.x = center.x + 0.5;
 
     vec2 c = (vTexCoord - 0.5) * zoom - center;
     vec2 z = vec2(0.0);
