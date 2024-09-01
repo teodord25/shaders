@@ -12,7 +12,10 @@ pub struct GpuInstance {
 
 impl GpuInstance {
     pub async fn new(window: Arc<Window>) -> GpuInstance {
-        let instance = wgpu::Instance::default();
+        let instance = wgpu::Instance::new(wgpu::InstanceDescriptor {
+            backends: wgpu::Backends::GL,
+            ..Default::default()
+        });
 
         let surface = instance.create_surface(window.clone()).unwrap();
         let adapter = instance
@@ -23,6 +26,8 @@ impl GpuInstance {
             })
             .await
             .unwrap();
+
+        assert!(adapter.is_surface_supported(&surface));
 
         let size = window.inner_size();
         let surface_config = surface
